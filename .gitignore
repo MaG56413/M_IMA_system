@@ -1,0 +1,14 @@
+*.o
+*.out
+*.exe
+
+# build directory
+build/
+
+# vscode
+.vscode/
+
+# executable
+main
+ima
+ima_demo
