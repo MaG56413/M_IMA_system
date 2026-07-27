@@ -3,7 +3,7 @@ CC = gcc
 
 
 # 编译参数
-CFLAGS = -Wall -g
+CFLAGS = -Wall -g -O0 -no-pie
 
 
 # 目标文件
@@ -30,36 +30,23 @@ fault/fault_record.c \
 map/function_map.c \
 wcet/wcet.c
 
-
-# 自动生成.o文件
-
 OBJS = $(SRCS:.c=.o)
 
 
-
-# 默认目标
 
 all: $(TARGET)
 
 
 
-# 链接
-
 $(TARGET): $(OBJS)
 
-	$(CC) $(OBJS) -o $(TARGET)
-
-
-
-# 编译.c文件
+	$(CC) $(CFLAGS) $(OBJS) -o $(TARGET)
 
 %.o: %.c
 
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 
-
-# 清理
 
 clean:
 
