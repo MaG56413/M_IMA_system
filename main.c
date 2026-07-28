@@ -5,18 +5,29 @@
 #define INVALID_ACCESS 500
 int main()
 {
-    FaultRecord record;
-    record.address = 0xFFFFFFFF;
-    record.id = 1;
-    record.pc = 0x80001000;
-    record.reason = INVALID_ACCESS;
-    record.type = DATA_ABORT;
-    uint32_t pc = 0x2005;
-    print_fault(&record);
+    CPU_Context ctx;
 
-    const char *name = find_function(record.pc);
-    printf("Function: %s\n", name);
-    find_function(pc);
-    printf("IMA System Start.\n");
+    ctx.pc = 0x80002005;
+
+    ctx.lr = 0x1000;
+
+    ctx.sp = 0x90000000;
+
+    ctx.status = 0x9000;
+
+    ctx.exception_id = 0x01;
+
+    ctx.r0 = 0xFFFFFFFF; //模拟非法访问地址
+
+    ctx.r1 = 0x1111;
+
+    ctx.r2 = 0x2222;
+
+    ctx.r3 = 0x3333;
+
+    ctx.r30 = 0x3000;
+
+    ctx.r31 = 0x4000;
+    exception_entry(&ctx);
     return 0;
 }

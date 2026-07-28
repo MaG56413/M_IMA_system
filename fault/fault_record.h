@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#include "exception/exception.h"
+#include "exception.h"
 
 typedef struct
 {
