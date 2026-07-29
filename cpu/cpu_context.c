@@ -21,6 +21,30 @@
 //          |
 //          |
 //  分析异常
+void init_context(CPU_Context *ctx)
+{
+    ctx->pc = 0x80002005;
+
+    ctx->lr = 0x80000000;
+
+    ctx->sp = 0x90000000;
+
+    ctx->status = 0x9000;
+
+    ctx->exception_id = 0x01;
+
+    ctx->r0 = 0xFFFFFFFF; //模拟非法访问地址
+
+    ctx->r1 = 0x1111;
+
+    ctx->r2 = 0x2222;
+
+    ctx->r3 = 0x3333;
+
+    ctx->r30 = 0x3000;
+
+    ctx->r31 = 0x4000;
+}
 
 CPU_Context *save_context(CPU_Context *context)
 {

@@ -1,6 +1,9 @@
 #ifndef WCET_H
 #define WCET_H
 
+#include "cpu_context.h"
+
+#include "fault.h"
 #include <stdint.h>
 
 /*
@@ -22,31 +25,19 @@ typedef struct
 /*
  * 初始化统计数据
  */
-void wcet_init(
-    WCET_Result *result);
+void wcet_init(WCET_Result *result);
 
-/*
- * 开始计时
- */
-uint64_t wcet_start();
-
-/*
- * 结束计时
- */
-uint64_t wcet_end(
-    uint64_t start);
+// 读取时间
+uint64_t cycle_counter();
 
 /*
  * 更新统计结果
  */
-void wcet_update(
-    WCET_Result *result,
-    uint64_t cycle);
+int wcet_update(WCET_Result *result, uint64_t cycle);
 
 /*
  * 打印结果
  */
-void wcet_print(
-    WCET_Result *result);
+void wcet_print(WCET_Result *result);
 
 #endif

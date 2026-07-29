@@ -2,32 +2,45 @@
 #include "exception/exception.h"
 #include "fault/fault_record.h"
 #include "map/function_map.h"
+#include "wcet.h"
 #define INVALID_ACCESS 500
+
+void test_task()
+{
+    volatile int i;
+
+    for (i = 0; i < 10000; i++)
+    {
+    }
+}
+
 int main()
 {
     CPU_Context ctx;
+    WCET_Result result;
+    uint64_t start;
+    uint64_t end;
+    uint64_t cycle;
 
-    ctx.pc = 0x80002005;
+    init_context(&ctx);
+    wcet_init(&result);
+    for (int i = 0; i < 10; i++)
+    {
+        start = cycle_counter();
+        test_task();
+        end = cycle_counter();
+        cycle = end - start;
 
-    ctx.lr = 0x1000;
+        if (wcet_update(&result, cycle))
+        {
+            fault_handler(&ctx);
+        }
+    }
 
-    ctx.sp = 0x90000000;
+    printf("cycle=%lu\n", cycle);
 
-    ctx.status = 0x9000;
+    // exception_entry(&ctx);
 
-    ctx.exception_id = 0x01;
-
-    ctx.r0 = 0xFFFFFFFF; //模拟非法访问地址
-
-    ctx.r1 = 0x1111;
-
-    ctx.r2 = 0x2222;
-
-    ctx.r3 = 0x3333;
-
-    ctx.r30 = 0x3000;
-
-    ctx.r31 = 0x4000;
-    exception_entry(&ctx);
+    wcet_print(&result);
     return 0;
 }

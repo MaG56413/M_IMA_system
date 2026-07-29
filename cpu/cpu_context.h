@@ -19,7 +19,7 @@ typedef struct
     uint32_t r30;
     uint32_t r31;
 } CPU_Context;
-
+void init_context(CPU_Context *ctx);
 CPU_Context *save_context(CPU_Context *context);
 void exception_entry(CPU_Context *context);
 void exception_handler(CPU_Context *context);
