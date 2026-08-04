@@ -17,30 +17,39 @@ void test_task()
 int main()
 {
     CPU_Context ctx;
-    WCET_Result result;
-    uint64_t start;
-    uint64_t end;
-    uint64_t cycle;
 
-    init_context(&ctx);
-    wcet_init(&result);
-    for (int i = 0; i < 10; i++)
-    {
-        start = cycle_counter();
-        test_task();
-        end = cycle_counter();
-        cycle = end - start;
+    ctx.pc = 0x80001000;
+    ctx.lr = 0x80000500;
+    ctx.sp = 0x90000000;
 
-        if (wcet_update(&result, cycle))
-        {
-            fault_handler(&ctx);
-        }
-    }
+    ctx.exception_type = EXCEPTION_DATA_STORAGE;
 
-    printf("cycle=%lu\n", cycle);
+    exception_handler(&ctx);
 
-    // exception_entry(&ctx);
+    // WCET_Result result;
+    // uint64_t start;
+    // uint64_t end;
+    // uint64_t cycle;
 
-    wcet_print(&result);
+    // init_context(&ctx);
+    // wcet_init(&result);
+    // for (int i = 0; i < 10; i++)
+    // {
+    //     start = cycle_counter();
+    //     test_task();
+    //     end = cycle_counter();
+    //     cycle = end - start;
+
+    //     if (wcet_update(&result, cycle))
+    //     {
+    //         fault_handler(&ctx);
+    //     }
+    // }
+
+    // printf("cycle=%lu\n", cycle);
+
+    // // exception_entry(&ctx);
+
+    // wcet_print(&result);
     return 0;
 }

@@ -2,6 +2,7 @@
 
 #include "exception.h"
 #include "fault.h"
+#include "exception_type.h"
 const char *exception_name[] =
     {"Reset",
      "Data Abort",
@@ -11,7 +12,7 @@ const char *exception_name[] =
 const char *get_exception_name(ExceptionType type)
 {
 
-    if (type <= PROGRAM_ERROR)
+    if (type <= EXCEPTION_PROGRAM_ERROR)
     {
         return exception_name[type];
     }

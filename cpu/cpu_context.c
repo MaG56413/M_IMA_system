@@ -31,6 +31,12 @@ void init_context(CPU_Context *ctx)
 
     ctx->status = 0x9000;
 
+    ctx->srr1 = 0x00009000;
+
+    ctx->dar = 0x00000000;
+
+    ctx->dsisr = DSISR_WRITE_ERROR;
+
     ctx->exception_id = 0x01;
 
     ctx->r0 = 0xFFFFFFFF; //模拟非法访问地址

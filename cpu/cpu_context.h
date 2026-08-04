@@ -4,6 +4,11 @@
 #include <stdio.h>
 #include <stdint.h>
 
+#include "exception_type.h"
+
+#define DSISR_READ_ERROR 0x40000000
+#define DSISR_WRITE_ERROR 0x02000000
+#define DSISR_PROTECTION 0x08000000
 typedef struct
 {
     uint32_t pc;
@@ -11,6 +16,10 @@ typedef struct
     uint32_t sp;
     uint32_t status;
     uint32_t exception_id;
+    uint32_t dar;
+    uint32_t srr1;  // 状态寄存器
+    uint32_t dsisr; // 数据异常原因
+    ExceptionType exception_type;
 
     uint32_t r0;
     uint32_t r1;
