@@ -29,7 +29,7 @@ int main()
 
     ctx.dsisr = 0x02000000;
 
-    ctx.srr1 = 0x00009000;
+    // ctx.srr1 = 0x00009000;
 
     ctx.exception_type = EXCEPTION_DATA_STORAGE;
 
