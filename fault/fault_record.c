@@ -21,5 +21,11 @@ void print_fault(FaultRecord *record)
               record->reason);
        printf("Exception_type:%d\n",
               record->type);
+       printf("address:0x%x\n",
+              record->address);
+       printf("reason:%d\n",
+              record->reason);
+       printf("Exception_type:%d\n",
+              record->type);
        // free(save_rec);
 }
